@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let item of menuItens" class="item-menu"> 
+        <div (click)="selectedItem(item)">{{item.name}} </div>   
+    </li>
+</ul> 
