@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "app-container": {
+    "app-banking": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app-container",
+            "outputPath": "dist/app-banking",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app-container:build"
+            "browserTarget": "app-banking:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app-container:build:production"
+              "browserTarget": "app-banking:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app-container:build"
+            "browserTarget": "app-banking:build"
           }
         },
         "test": {
@@ -107,15 +107,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app-container:serve"
+            "devServerTarget": "app-banking:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app-container:serve:production"
+              "devServerTarget": "app-banking:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "app-container"
+  "defaultProject": "app-banking"
 }
