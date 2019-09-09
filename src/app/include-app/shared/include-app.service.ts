@@ -21,13 +21,12 @@ export class IncludeAppService {
     public includeApp(itemMenu: MenuItem) {
         if (itemMenu)
         {
-           
             this.findConfigApp(itemMenu.pathApp)
                 .subscribe(configApp => {
 
-                    this.includeTag(configApp.tag);
+                    this.includeTag(itemMenu.tag);
                     this.includeScriptsShared();
-                    this.includeScripts(configApp.tagName, configApp.scripts);
+                    this.includeScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
                 })
 
         }
@@ -58,7 +57,7 @@ export class IncludeAppService {
      * 
      * @param scripts 
      */
-    private includeScripts(tagName: string, scripts: Array<string>) 
+    private includeScripts(tagName: string, pathApp:string, scripts: Array<string>) 
     {
     
         if (scripts && scripts.length)
@@ -76,7 +75,7 @@ export class IncludeAppService {
                     spanContainerScript.id = "id" + tagName;
 
                     const elementScript = this.document.createElement("script");
-                    elementScript.src = script;
+                    elementScript.src = pathApp + "/" + script;
                     spanContainerScript.appendChild(elementScript);
                 }
 
@@ -118,8 +117,8 @@ export class IncludeAppService {
      * @param pathApp 
      */
     private findConfigApp(pathApp: string): Observable<any> {
-        return this.httpClient.get("assets/config-app.json");
-        //return this.httpClient.get(pathApp + "/configApp.json");
+        //return this.httpClient.get("assets/config-app.json");
+        return this.httpClient.get(pathApp + "/config-app.json");
     }
 
 
