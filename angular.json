@@ -27,6 +27,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "src/assets/light-event-bus.min.js"
             ]
           },
           "configurations": {

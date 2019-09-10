@@ -5,8 +5,10 @@ import { AppService } from 'src/app/app.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+declare const EVENT_BUS;
+
 @Injectable()
-export class IncludeAppService {
+export class LoadAppService {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -18,15 +20,15 @@ export class IncludeAppService {
      * 
      * @param itemMenu 
      */     
-    public includeApp(itemMenu: MenuItem) {
+    public loadApp(itemMenu: MenuItem) {
         if (itemMenu)
         {
             this.findConfigApp(itemMenu.pathApp)
                 .subscribe(configApp => {
 
-                    this.includeTag(itemMenu.tag);
-                    this.includeScriptsShared();
-                    this.includeScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
+                    this.loadTag(itemMenu.tag);
+                    this.loadScriptsShared();
+                    this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
                 })
 
         }
@@ -38,7 +40,7 @@ export class IncludeAppService {
       * 
       * @param tag 
       */
-     private includeTag(tag:string)
+     private loadTag(tag:string)
      {
         if(tag)
         {
@@ -57,16 +59,16 @@ export class IncludeAppService {
      * 
      * @param scripts 
      */
-    private includeScripts(tagName: string, pathApp:string, scripts: Array<string>) 
+    private loadScripts(tagName: string, pathApp:string, scripts: Array<string>) 
     {
     
         if (scripts && scripts.length)
         {
             const idSpanContainerScript = "id" + tagName;
 
-            const spanContainerIncluded = this.document.getElementById(idSpanContainerScript);
+            const spanContainerLoaderd = this.document.getElementById(idSpanContainerScript);
 
-            if (!spanContainerIncluded)
+            if (!spanContainerLoaderd)
             {
                 const spanContainerScript = this.document.createElement("span");
 
@@ -75,7 +77,8 @@ export class IncludeAppService {
                     spanContainerScript.id = "id" + tagName;
 
                     const elementScript = this.document.createElement("script");
-                    elementScript.src = pathApp + "/" + script;
+                    //elementScript.src = pathApp + "/" + script;
+                    elementScript.src =  script;
                     spanContainerScript.appendChild(elementScript);
                 }
 
@@ -89,13 +92,13 @@ export class IncludeAppService {
         }
     }
 
-    private includeScriptsShared() 
+    private loadScriptsShared() 
     {
     
         const idSpanSharedScript = "idSharedScript";
-        const spanContainerIncluded = this.document.getElementById(idSpanSharedScript);
+        const spanContainerLoaderd = this.document.getElementById(idSpanSharedScript);
 
-        if (!spanContainerIncluded)
+        if (!spanContainerLoaderd)
         {
             const elementScript = this.document.createElement("script");
             elementScript.src = "https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js";
@@ -117,17 +120,31 @@ export class IncludeAppService {
      * @param pathApp 
      */
     private findConfigApp(pathApp: string): Observable<any> {
-        //return this.httpClient.get("assets/config-app.json");
-        return this.httpClient.get(pathApp + "/config-app.json");
+        return this.httpClient.get("assets/config-app.json");
+        //return this.httpClient.get(pathApp + "/config-app.json");
     }
 
 
-    Addlistener() {
+    private addlistener() 
+    {
         const appSeguros = this.document.getElementsByTagName("app-seguros")[0];
 
         appSeguros.addEventListener('emitTypeSeguro', event => {
             console.log(event);
         })
+    }
+
+
+    public messageBus()
+    {
+        const eventBus =  EVENT_BUS.EventBusSingleton
+
+        //const subscription = eventBus.subscribe('eventTeste', arg => console.log(arg))
+        
+        setTimeout(eventBus.publish('eventTeste', {'codigo':1010, 'descricao':'Descrição 1'}), 1000);
+        
+
+        //subscription.unsubscribe()
     }
 
 }

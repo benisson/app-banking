@@ -10,11 +10,8 @@ const routes: Routes = [
   {
      path: 'home',
      loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
-  },
-  {
-    path: 'include-app',
-    loadChildren: () => import('./include-app/include-app.module').then(mod => mod.IncludeAppModule)
   }
+
 ];
 
 @NgModule({

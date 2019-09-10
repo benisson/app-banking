@@ -14,7 +14,7 @@ export class MenuService {
     }
 
     /**
-     * Resposta mockada apenas teste.
+     * Simulando a resposta da API responsável por trazer as informações do menu.
      */
     private responseMockMenuOptions() {
         return of(

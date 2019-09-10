@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from './components/menu/shared/menu-item.model';
 import { AppService } from './app.service';
-import { Router } from '@angular/router';
+import { LoadAppService } from './shared/load-app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent  implements OnInit {
 
-  constructor(public appService: AppService, private router:Router)  
+  constructor(
+    public appService: AppService, 
+    private loadAppService: LoadAppService)  
   {}
 
   ngOnInit(): void 
@@ -24,8 +26,8 @@ export class AppComponent  implements OnInit {
   public receiveItemMenu(menuItem:MenuItem)
   {
       console.log(menuItem);
-      this.appService.itemMenuSelected = menuItem;
-      this.router.navigate(['include-app'])
+      this.loadAppService.loadApp(menuItem);
+      this.loadAppService.messageBus();
   }
 
 
