@@ -1,4 +1,29 @@
-.item-menu
-{
+.vertical-menu {
+    width: 100%;
+  }
+  
+  .vertical-menu div {
+    color: #15488c;
+    display: block;
+    line-height: 3;
+    text-decoration: none;
     cursor: pointer;
+    padding-left: 15px;
+    font-weight: 600;
+  }
+  
+  .vertical-menu div:hover {
+    background-color: #e7e7e7;
+    color: #15488c;
+  }
+  
+  .vertical-menu div.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+
+mat-icon
+{
+    color: #607D8B;
 }

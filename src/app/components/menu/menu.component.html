@@ -1,5 +1,8 @@
-<ul>
-    <li *ngFor="let item of menuItens" class="item-menu"> 
-        <div (click)="selectedItem(item)">{{item.name}} </div>   
-    </li>
-</ul> 
+<div class="vertical-menu">
+    <div (click)="selectedItem(item)" 
+         *ngFor="let item of menuItens"> 
+         <mat-icon>{{item.icon}}</mat-icon>
+        
+        <span> {{item.name}} </span>
+        </div>
+</div>

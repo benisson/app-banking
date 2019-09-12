@@ -19,10 +19,8 @@ export class MenuService {
     private responseMockMenuOptions() {
         return of(
             [
-                new MenuItem(1, 'Seguro Residencial', '<app-seguros type=1></app-seguros>', '/app-seguros', '/app-seguros/seguro-residencial'),
-                new MenuItem(2, 'Seguro Auto', '<app-seguros type=2></app-seguros>', '/app-seguros', '/app-seguros/seguro-auto'),
-                new MenuItem(3, 'Cartão Virtual', '<app-cartoes></app-cartoes>', '/app-cartoes', '/app-cartoes/cartao-virtual'),
-                new MenuItem(4, 'Faturo do Cartão', '<app-cartoes></app-cartoes>', '/app-cartoes', '/app-cartoes/fatura-cartao')
+                new MenuItem(1, 'Seguros', '<app-seguros></app-seguros>', '/app-seguros', '/app-seguros/seguro-residencial', 'security'),
+                new MenuItem(2, 'Cartão ', '<app-cartoes></app-cartoes>', '/app-cartoes', '/app-cartoes/cartao-virtual', 'credit_card'),
             ]
         )
     }

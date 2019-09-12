@@ -4,3 +4,15 @@ body
 {
     font-family: sans-serif;
 }
+html, body { height: 100%; }
+body { margin: 0; }
+
+.mat-toolbar {
+    background: #15488c;
+    color: #ffff;
+}
+
+
+mat-icon {
+    vertical-align: middle;
+}

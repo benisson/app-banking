@@ -4,8 +4,9 @@ import { DOCUMENT } from '@angular/common';
 import { AppService } from 'src/app/app.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
-declare const EVENT_BUS;
+declare const APP_EVENT_BUS;
 
 @Injectable()
 export class LoadAppService {
@@ -25,7 +26,7 @@ export class LoadAppService {
         {
             this.findConfigApp(itemMenu.pathApp)
                 .subscribe(configApp => {
-
+                    console.log(configApp);
                     this.loadTag(itemMenu.tag);
                     this.loadScriptsShared();
                     this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
@@ -77,8 +78,8 @@ export class LoadAppService {
                     spanContainerScript.id = "id" + tagName;
 
                     const elementScript = this.document.createElement("script");
-                    //elementScript.src = pathApp + "/" + script;
-                    elementScript.src =  script;
+                    elementScript.src = environment.serverStatic + "/" + pathApp + "/" + script;
+                    //elementScript.src =  script;
                     spanContainerScript.appendChild(elementScript);
                 }
 
@@ -120,8 +121,8 @@ export class LoadAppService {
      * @param pathApp 
      */
     private findConfigApp(pathApp: string): Observable<any> {
-        return this.httpClient.get("assets/config-app.json");
-        //return this.httpClient.get(pathApp + "/config-app.json");
+        //return this.httpClient.get("/config-app.json");
+        return this.httpClient.get(environment.serverStatic +  pathApp + "/config-app.json");
     }
 
 
@@ -137,13 +138,11 @@ export class LoadAppService {
 
     public messageBus()
     {
-        const eventBus =  EVENT_BUS.EventBusSingleton
-
+ 
         //const subscription = eventBus.subscribe('eventTeste', arg => console.log(arg))
         
-        setTimeout(eventBus.publish('eventTeste', {'codigo':1010, 'descricao':'Descrição 1'}), 1000);
-        
-
+        setTimeout(APP_EVENT_BUS.publish('eventTeste', {'codigo':1010, 'descricao':'Descrição 1'}), 1000);
+ 
         //subscription.unsubscribe()
     }
 

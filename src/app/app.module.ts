@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { MenuModule } from './components/menu/menu.module';
 import { LoadAppService } from './shared/load-app.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     MenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   providers: [LoadAppService],
   bootstrap: [AppComponent]

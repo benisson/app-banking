@@ -24,10 +24,12 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/light-event-bus.min.js"
+              "src/assets/event-bus-app-baking.js",
+              "src/assets/app-shared-data.js"
             ]
           },
           "configurations": {
@@ -86,6 +88,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -117,6 +120,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "app-banking"
 }

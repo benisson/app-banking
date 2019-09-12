@@ -1,14 +1,22 @@
-<div class="container">
-    <nav>
-        <h3> Banking - App Container </h3>
+<mat-toolbar>
+    <mat-icon aria-hidden="false" aria-label="Internet Backing">account_balance</mat-icon>
+    <span style="padding-left: 5px;"> Internet Backing </span>
+    <span class="example-fill-remaining-space"> </span>
+
+        <span>
+                <span> {{userCurrent.name}} </span><mat-icon aria-hidden="false" aria-label="User">perm_identity</mat-icon>
+        </span>
+
+</mat-toolbar>
+
+
+
+<mat-drawer-container class="container">
+    <mat-drawer mode="side" opened>
         <app-menu (emitItemSelected)="receiveItemMenu($event)"></app-menu>
-    </nav>
-
-    <div class="flex-column">
-        <section>
-            <div id="{{appService.idContainer}}"></div>
-            <router-outlet></router-outlet>
-        </section>
-    </div>
-
-</div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div id="{{appService.idContainer}}"></div>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

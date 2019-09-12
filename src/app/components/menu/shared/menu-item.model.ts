@@ -5,14 +5,16 @@ export class MenuItem
     public tag:string;
     public pathApp:string;
     public pathOption:string;
+    public icon:string;
    
 
-    constructor(cod:number, name:string, tag:string, pathApp:string, pathOption:string)
+    constructor(cod:number, name:string, tag:string, pathApp:string, pathOption:string, icon:string)
     {
         this.cod = cod;
         this.name = name;
         this.tag = tag;
         this.pathApp = pathApp;
         this.pathOption = pathOption;
+        this.icon = icon;
     }
 }
