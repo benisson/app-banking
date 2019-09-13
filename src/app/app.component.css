@@ -18,3 +18,9 @@ mat-drawer {
 mat-icon {
   vertical-align: middle;
 }
+
+.info-user
+{
+  line-height: 0.8;
+  margin-left: 10px;
+}

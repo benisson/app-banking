@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuModule } from './components/menu/menu.module';
-import { LoadAppService } from './shared/load-app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -24,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatToolbarModule,
     MatSidenavModule
   ],
-  providers: [LoadAppService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

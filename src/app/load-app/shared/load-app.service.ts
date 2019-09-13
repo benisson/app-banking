@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { AppService } from 'src/app/app.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 declare const APP_EVENT_BUS;
 
@@ -16,6 +16,7 @@ export class LoadAppService {
         private appService: AppService,
         private httpClient: HttpClient) { }
 
+    private configAppCurrent:any;
     /**
      * Inclui a nova app a ser rederizada na pagina.
      * 
@@ -26,7 +27,7 @@ export class LoadAppService {
         {
             this.findConfigApp(itemMenu.pathApp)
                 .subscribe(configApp => {
-                    console.log(configApp);
+                    this.configAppCurrent = configApp;
                     this.loadTag(itemMenu.tag);
                     this.loadScriptsShared();
                     this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
@@ -47,7 +48,6 @@ export class LoadAppService {
         {
             const idContainer = this.appService.idContainer;
             const container = this.document.getElementById(idContainer);
-
             container.innerHTML = tag;
         }
      }
@@ -120,7 +120,8 @@ export class LoadAppService {
      * 
      * @param pathApp 
      */
-    private findConfigApp(pathApp: string): Observable<any> {
+    private findConfigApp(pathApp: string): Observable<any> 
+    {
         //return this.httpClient.get("/config-app.json");
         return this.httpClient.get(environment.serverStatic +  pathApp + "/config-app.json");
     }
@@ -136,14 +137,14 @@ export class LoadAppService {
     }
 
 
-    public messageBus()
+    public unloadApp()
     {
- 
-        //const subscription = eventBus.subscribe('eventTeste', arg => console.log(arg))
-        
-        setTimeout(APP_EVENT_BUS.publish('eventTeste', {'codigo':1010, 'descricao':'Descrição 1'}), 1000);
- 
-        //subscription.unsubscribe()
-    }
+        const elementApp = this.document.getElementsByTagName(this.configAppCurrent.tagName);
 
+        if(elementApp && elementApp.length)
+        {
+            elementApp[0].remove();
+        }
+       
+    }
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from './components/menu/shared/menu-item.model';
 import { AppService } from './app.service';
-import { LoadAppService } from './shared/load-app.service';
+import { Router } from '@angular/router';
 
 declare const APP_SHARED_DATA;
+
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     public appService: AppService,
-    private loadAppService: LoadAppService) { }
+    public router:Router) { }
 
 
   public userCurrent:any;  
 
   ngOnInit(): void {
     this.initDateUser();
+
   }
 
   /**
@@ -38,11 +40,11 @@ export class AppComponent implements OnInit {
    * @param menuItem 
    */
   public receiveItemMenu(menuItem: MenuItem) {
-    console.log(menuItem);
-    this.loadAppService.messageBus();
-    this.loadAppService.loadApp(menuItem);
-
+   this.appService.menuItemSelected = menuItem;
+   this.router.navigate(['load-app']);
   }
+
+
 
 
 
