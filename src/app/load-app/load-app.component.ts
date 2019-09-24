@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, InjectionToken } from '@angular/core';
 import { AppService } from '../app.service';
 import { LoadAppService } from './shared/load-app.service';
 import { Router } from '@angular/router';
@@ -10,10 +10,12 @@ declare const APP_EVENT_BUS;
 })
 export class LoadAppComponent implements OnInit {
 
+
+
   constructor(
     public appService: AppService, 
     private loadAppService: LoadAppService,
-    private router:Router) { }
+    private router:Router ) { }
 
   ngOnInit() 
   {

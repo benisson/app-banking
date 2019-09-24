@@ -78,7 +78,8 @@ export class LoadAppService {
                     spanContainerScript.id = "id" + tagName;
 
                     const elementScript = this.document.createElement("script");
-                    elementScript.src = environment.serverStatic + "/" + pathApp + "/" + script;
+
+                    elementScript.src = environment.serverStatic + pathApp + "/" + script;
                     //elementScript.src =  script;
                     spanContainerScript.appendChild(elementScript);
                 }
@@ -89,6 +90,8 @@ export class LoadAppService {
                 const header = this.document.getElementsByTagName("head")[0];
                 header.appendChild(spanContainerScript);
 
+
+                this.document.getElementsByTagName("base")[0].href ="/app-seguros/"
             }
         }
     }
