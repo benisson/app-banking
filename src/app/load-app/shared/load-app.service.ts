@@ -89,9 +89,6 @@ export class LoadAppService {
                  */
                 const header = this.document.getElementsByTagName("head")[0];
                 header.appendChild(spanContainerScript);
-
-
-                this.document.getElementsByTagName("base")[0].href ="/app-seguros/"
             }
         }
     }
