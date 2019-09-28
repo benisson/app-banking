@@ -24,3 +24,7 @@ mat-icon {
   line-height: 0.8;
   margin-left: 10px;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}

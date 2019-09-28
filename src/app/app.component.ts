@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
    * Simulando os dados do usuário logado
    */
   private initDateUser() {
-    APP_SHARED_DATA.userData = { 'name': 'John Silva', 'cod': 903993, 'phone_number': '34-96545-0540' }
+    APP_SHARED_DATA.userData = { 'name': 'Brendan Eich', 'cod': 903993, 'phone_number': '34-96545-0540', 'avatar':'assets/img/avatar_client_903993.png' }
   
     this.userCurrent = APP_SHARED_DATA.userData;
   }
