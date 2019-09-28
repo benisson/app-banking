@@ -89,6 +89,7 @@ export class LoadAppService {
                  */
                 const header = this.document.getElementsByTagName("head")[0];
                 header.appendChild(spanContainerScript);
+
             }
         }
     }

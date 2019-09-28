@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverStatic: "http://localhost:3000"
+  serverStatic: "http://localhost:8000"
 };
 
 /*
