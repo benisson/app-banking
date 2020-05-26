@@ -79,7 +79,8 @@ export class LoadAppService {
 
                     const elementScript = this.document.createElement("script");
 
-                    elementScript.src = environment.serverStatic + pathApp + "/" + script;
+                    elementScript.src = pathApp + "/" + script;
+                    
                     //elementScript.src =  script;
                     spanContainerScript.appendChild(elementScript);
                 }
@@ -124,7 +125,7 @@ export class LoadAppService {
     private findConfigApp(pathApp: string): Observable<any> 
     {
         //return this.httpClient.get("/config-app.json");
-        return this.httpClient.get(environment.serverStatic +  pathApp + "/config-app.json");
+        return this.httpClient.get(pathApp + "/config-app.json");
     }
 
 
