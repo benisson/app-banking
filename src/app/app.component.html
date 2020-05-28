@@ -1,23 +1,22 @@
-<mat-toolbar>
-    <img routerLink="/"  style="cursor: pointer;" src="assets/img/logo.png" style="width: 3%;">
+<nb-layout>
 
+  <nb-layout-header fixed>
+  
+    <img routerLink="/"  style="cursor: pointer;" src="assets/img/logo.png" style="width: 3%;">
+    
     <span  routerLink="/" style="padding-left: 5px;cursor: pointer;"> JS Bank</span>
     <span class="example-fill-remaining-space"> </span>
 
 
     <span> <h3  style="margin-left: 10px;">{{userCurrent.name}} </h3></span>
     <span style="width: 50px; margin-left: 10px;"> <img src="{{userCurrent.avatar}}" style="width: 100%;float: right;"></span>
+  </nb-layout-header>
 
+  <nb-sidebar>
+    <app-menu (emitItemSelected)="receiveItemMenu($event)"></app-menu>
+  </nb-sidebar>
 
-</mat-toolbar>
-
-
-
-<mat-drawer-container class="container">
-    <mat-drawer mode="side" opened>
-        <app-menu (emitItemSelected)="receiveItemMenu($event)"></app-menu>
-    </mat-drawer>
-    <mat-drawer-content>
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

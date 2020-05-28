@@ -23,16 +23,19 @@ export class LoadAppService {
      * @param itemMenu 
      */     
     public loadApp(itemMenu: MenuItem) {
+        if(this.configAppCurrent){
+            this.unloadApp();
+        }
         if (itemMenu)
         {
             this.findConfigApp(itemMenu.pathApp)
                 .subscribe(configApp => {
                     this.configAppCurrent = configApp;
-                    this.loadTag(itemMenu.tag);
+                    /* this.loadTag(itemMenu.tag);
                     this.loadScriptsShared();
-                    this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts);
+                    this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts); */
+                    this.loadTag(itemMenu.pathApp);
                 })
-
         }
     }
 
@@ -42,15 +45,27 @@ export class LoadAppService {
       * 
       * @param tag 
       */
-     private loadTag(tag:string)
+     private loadTag(pathApp: string)
      {
-        if(tag)
+        if(this.configAppCurrent.tag)
         {
             const idContainer = this.appService.idContainer;
             const container = this.document.getElementById(idContainer);
-            container.innerHTML = tag;
+            //container.innerHTML = this.configAppCurrent.tag;
+            var el = this.document.createElement(this.configAppCurrent.tagName);
+            var shadowDOM = container.attachShadow({mode: 'open'});
+            shadowDOM.appendChild(el);
+            var elementScript = this.document.createElement("script");
+            elementScript.src = "https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js";
+            shadowDOM.appendChild(elementScript);
+            for (const script of this.configAppCurrent.scripts)
+            {
+                const elementScript = this.document.createElement("script");
+                elementScript.src = pathApp + "/" + script;
+                shadowDOM.appendChild(elementScript);
+            }
         }
-     }
+    }
 
 
     /**
@@ -62,7 +77,7 @@ export class LoadAppService {
      */
     private loadScripts(tagName: string, pathApp:string, scripts: Array<string>) 
     {
-    
+        
         if (scripts && scripts.length)
         {
             const idSpanContainerScript = "id" + tagName;
@@ -72,7 +87,6 @@ export class LoadAppService {
             if (!spanContainerLoaderd)
             {
                 const spanContainerScript = this.document.createElement("span");
-
                 for (const script of scripts)
                 {
                     spanContainerScript.id = "id" + tagName;
@@ -80,7 +94,6 @@ export class LoadAppService {
                     const elementScript = this.document.createElement("script");
 
                     elementScript.src = pathApp + "/" + script;
-                    
                     //elementScript.src =  script;
                     spanContainerScript.appendChild(elementScript);
                 }
@@ -90,7 +103,6 @@ export class LoadAppService {
                  */
                 const header = this.document.getElementsByTagName("head")[0];
                 header.appendChild(spanContainerScript);
-
             }
         }
     }

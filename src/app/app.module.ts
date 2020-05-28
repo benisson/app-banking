@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuModule } from './components/menu/menu.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbSidebarService } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -20,11 +19,13 @@ import {MatIconModule} from '@angular/material/icon';
     MenuModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbSidebarModule,
+    NbEvaIconsModule
   ],
-
-  bootstrap: [AppComponent]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers:[NbSidebarService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
