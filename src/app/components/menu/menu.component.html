@@ -1,8 +1,7 @@
 <div class="vertical-menu">
     <div (click)="selectedItem(item)" 
          *ngFor="let item of menuItens"> 
-         <mat-icon>{{item.icon}}</mat-icon>
-        
+        <nb-icon icon="{{item.icon}}"></nb-icon>
         <span> {{item.name}} </span>
         </div>
 </div>
