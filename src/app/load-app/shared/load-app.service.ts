@@ -50,20 +50,31 @@ export class LoadAppService {
         if(this.configAppCurrent.tag)
         {
             const idContainer = this.appService.idContainer;
-            const container = this.document.getElementById(idContainer);
-            //container.innerHTML = this.configAppCurrent.tag;
-            var el = this.document.createElement(this.configAppCurrent.tagName);
-            var shadowDOM = container.attachShadow({mode: 'open'});
-            shadowDOM.appendChild(el);
-            var elementScript = this.document.createElement("script");
+            
+            //Elemento usado para incluir outros componentes
+            const elementContainer = this.document.getElementById(idContainer);
+            
+            //Cria o custom element da app
+            const elementApp = this.document.createElement(this.configAppCurrent.tagName);
+            
+            //Cria o element shadowDOM a partir do elementContainer
+            const shadowDOM = elementContainer.attachShadow({mode: 'closed'});
+            
+
+            const elementScript = this.document.createElement("script");
             elementScript.src = "https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js";
+            
             shadowDOM.appendChild(elementScript);
+            
             for (const script of this.configAppCurrent.scripts)
             {
                 const elementScript = this.document.createElement("script");
                 elementScript.src = pathApp + "/" + script;
+                
                 shadowDOM.appendChild(elementScript);
             }
+
+            shadowDOM.appendChild(elementApp);
         }
     }
 
