@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
    */
   public receiveItemMenu(menuItem: MenuItem) {
    this.appService.menuItemSelected = menuItem;
-   console.log('clique menu');
    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    this.router.onSameUrlNavigation = 'reload';
    this.router.navigate(['load-app']);
