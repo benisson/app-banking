@@ -148,7 +148,7 @@ export class LoadAppService {
     private findConfigApp(pathApp: string): Observable<any> 
     {
         //return this.httpClient.get("/config-app.json");
-        return this.httpClient.get(pathApp + "/config-app.json");
+        return this.httpClient.get(pathApp + "/manifest-app.json");
     }
 
 
