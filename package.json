@@ -6,7 +6,7 @@
     "start-local": "ng serve --proxy-config proxy.json",
     "start": "node server.js",
     "start2": "node static-server-dev.js",
-    "build": "ng build --prod --aot",
+    "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
