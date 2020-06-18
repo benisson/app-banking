@@ -16,3 +16,11 @@ body { margin: 0; }
 mat-icon {
     vertical-align: middle;
 }
+
+.react-border{
+    border: 2px blue dotted;
+}
+
+.angular-border{
+    border: 2px red dotted;
+}

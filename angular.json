@@ -29,7 +29,8 @@
             ],
             "scripts": [
               "src/assets/event-bus-app-baking.js",
-              "src/assets/app-shared-data.js"
+              "src/assets/app-shared-data.js",
+              "src/assets/bb-event-bus.js"
             ]
           },
           "configurations": {

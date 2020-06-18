@@ -22,6 +22,7 @@ export class MenuService {
                 new MenuItem(1, 'Seguros', '<app-seguros></app-seguros>', '/public/seguros', '/app-seguros/seguro-residencial', 'lock-outline'),
                 new MenuItem(2, 'Cartão ', '<app-cartoes></app-cartoes>', '/public/cartoes', '/app-cartoes/cartao-virtual', 'credit-card-outline'),
                 new MenuItem(3, 'Extrato', '<app-extrato></app-extrato>', '/public/extrato', '/app-extrato/detalhes', 'credit-card-outline'),
+                new MenuItem(4, 'Transferência', '<app-transferencia></app-transferencia>', '/public/transferencia', '/app-transferencia/detalhes', 'credit-card-outline'),
             ]
         )
     }

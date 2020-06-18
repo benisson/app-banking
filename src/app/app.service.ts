@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MenuItem } from './components/menu/shared/menu-item.model';
 
 
@@ -6,7 +7,6 @@ import { MenuItem } from './components/menu/shared/menu-item.model';
     providedIn: 'root'
 })
 export class AppService {
-
     /**
      * ID do elemento para inserir apps.
      */
@@ -17,7 +17,14 @@ export class AppService {
      */
     public menuItemSelected: MenuItem;
 
-    constructor() { }
+    public pathApp: string = '/public/react';
+
+    constructor(private httpClient: HttpClient) { }
+
+    public findConfigApp() 
+    {
+        return this.httpClient .get(this.pathApp + "/config-app.json");
+    }
 
 
 }

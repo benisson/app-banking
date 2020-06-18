@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+//TO DO: Retirar caso não haja uso
 declare const APP_EVENT_BUS;
 
 @Injectable()
@@ -17,15 +18,16 @@ export class LoadAppService {
         private httpClient: HttpClient) { }
 
     private configAppCurrent:any;
+    //Elemento usado para incluir outros componentes
+    private elementContainer: any;
+    //Elemento usado quando utilizar shadowDOM
+    private shadowDOM:any;
     /**
      * Inclui a nova app a ser rederizada na pagina.
      * 
      * @param itemMenu 
      */     
     public loadApp(itemMenu: MenuItem) {
-        if(this.configAppCurrent){
-            this.unloadApp();
-        }
         if (itemMenu)
         {
             this.findConfigApp(itemMenu.pathApp)
@@ -34,7 +36,8 @@ export class LoadAppService {
                     /* this.loadTag(itemMenu.tag);
                     this.loadScriptsShared();
                     this.loadScripts(configApp.tagName, itemMenu.pathApp, configApp.scripts); */
-                    this.loadTag(itemMenu.pathApp);
+                    this.loadScripts(itemMenu.pathApp)
+                    this.loadTag();
                 })
         }
     }
@@ -45,76 +48,41 @@ export class LoadAppService {
       * 
       * @param tag 
       */
-     private loadTag(pathApp: string)
+     private loadTag()
      {
         if(this.configAppCurrent.tag)
         {
-            const idContainer = this.appService.idContainer;
-            
-            //Elemento usado para incluir outros componentes
-            const elementContainer = this.document.getElementById(idContainer);
-            
             //Cria o custom element da app
-            const elementApp = this.document.createElement(this.configAppCurrent.tagName);
-            
-            //Cria o element shadowDOM a partir do elementContainer
-            const shadowDOM = elementContainer.attachShadow({mode: 'closed'});
-            
-
-            const elementScript = this.document.createElement("script");
-            elementScript.src = "https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js";
-            
-            shadowDOM.appendChild(elementScript);
-            
-            for (const script of this.configAppCurrent.scripts)
-            {
-                const elementScript = this.document.createElement("script");
-                elementScript.src = pathApp + "/" + script;
-                
-                shadowDOM.appendChild(elementScript);
-            }
-
-            shadowDOM.appendChild(elementApp);
+            const elementApp = this.document.createElement(this.configAppCurrent.tagName); 
+            this.configAppCurrent.shadowDOM ? this.shadowDOM.appendChild(elementApp) : this.elementContainer.appendChild(elementApp);
         }
     }
-
-
     /**
-     * Verifica se a tag que envolve os scripts já esta no DOM,
-     * caso não esteja cria uma tag span e inclui as tags scripts
-     * e adiciona ao header da pagina.
+     * Verifica os scripts e estilos que o componente possui
+     * e adiciona os elementos no nó de criação do mesmo
      * 
-     * @param scripts 
+     * @param pathApp
      */
-    private loadScripts(tagName: string, pathApp:string, scripts: Array<string>) 
+    private loadScripts(pathApp:string) 
     {
-        
-        if (scripts && scripts.length)
+        //Seleciona o nó onde será inserido o elemento
+        this.elementContainer = this.document.getElementById(this.appService.idContainer);
+        //Verifica se o elemento deve ser criado dentro de um shadowDOM
+        if(this.configAppCurrent.shadowDOM){
+            this.shadowDOM = this.elementContainer.attachShadow({mode: this.configAppCurrent.shadowDOM});
+        }
+        for (const script of this.configAppCurrent.scripts)
         {
-            const idSpanContainerScript = "id" + tagName;
-
-            const spanContainerLoaderd = this.document.getElementById(idSpanContainerScript);
-
-            if (!spanContainerLoaderd)
-            {
-                const spanContainerScript = this.document.createElement("span");
-                for (const script of scripts)
-                {
-                    spanContainerScript.id = "id" + tagName;
-
-                    const elementScript = this.document.createElement("script");
-
-                    elementScript.src = pathApp + "/" + script;
-                    //elementScript.src =  script;
-                    spanContainerScript.appendChild(elementScript);
-                }
-
-                /**
-                 * TODO - INCLUIR NO HEAD NÃO É LEGAL, COLOCAR NO BODY
-                 */
-                const header = this.document.getElementsByTagName("head")[0];
-                header.appendChild(spanContainerScript);
-            }
+            if(script.includes('.css')){
+                const styleEl = document.createElement('link');
+                styleEl.rel = 'stylesheet';
+                styleEl.href = pathApp + '/' + script;
+                this.configAppCurrent.shadowDOM ? this.shadowDOM.appendChild( styleEl ): this.elementContainer.appendChild( styleEl );
+              } else if (script.includes('.js')){
+                const scriptEl = document.createElement('script');
+                scriptEl.src =  pathApp + "/" + script
+                this.configAppCurrent.shadowDOM ? this.shadowDOM.appendChild(scriptEl): this.elementContainer.appendChild( scriptEl );  
+              }
         }
     }
 
@@ -151,21 +119,20 @@ export class LoadAppService {
         return this.httpClient.get(pathApp + "/config-app.json");
     }
 
-
-    private addlistener() 
+    //TO DO: Necessário? 
+   /*  private addlistener() 
     {
         const appSeguros = this.document.getElementsByTagName("app-seguros")[0];
 
         appSeguros.addEventListener('emitTypeSeguro', event => {
             console.log(event);
         })
-    }
+    } */
 
 
     public unloadApp()
     {
         const elementApp = this.document.getElementsByTagName(this.configAppCurrent.tagName);
-
         if(elementApp && elementApp.length)
         {
             elementApp[0].remove();
